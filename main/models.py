@@ -9,12 +9,13 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-class Article(models.Model):
-    title = models.CharField(_("Title"), max_length=200)
-    content = models.TextField(_("Content"))
-    publication_date = models.DateTimeField(_("Publication Date"), auto_now_add=True)
-    language = models.ForeignKey(Language, on_delete=models.CASCADE, verbose_name=_("Language"), default=1)  # Utiliser une valeur par défaut
 
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    publication_date = models.DateTimeField()
 
     def __str__(self):
         return self.title
+
+   

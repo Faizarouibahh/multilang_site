@@ -54,10 +54,10 @@ ROOT_URLCONF = 'multilang_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-       'DIRS': [BASE_DIR / 'templates'], 
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
+            'context_processors': [  # Correction : Ajout de deux-points et retour à la ligne pour la liste
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
@@ -77,7 +77,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'multilang_site',
         'USER': 'postgres',
-        'PASSWORD': 'root',  # Remplacez par votre mot de passe PostgreSQL
+        'PASSWORD': 'root', 
         'HOST': 'localhost',
         'PORT': '5432',
     }
