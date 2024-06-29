@@ -1,17 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des articles</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        .article {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .article h2 {
+            margin-top: 0;
+        }
+        .article .content {
+            margin-top: 10px;
+        }
+        .article .publication-date {
+            font-style: italic;
+            color: #666;
+        }
+    </style>
 </head>
 <body>
     <h1>Liste des articles</h1>
-    <ul>
+    {% if articles %}
         {% for article in articles %}
-            <li>
-                <a href="{% url 'article_detail' article.id %}">{{ article.title }}</a> - {{ article.publication_date }}
-            </li>
+            <div class="article">
+                <h2>{{ article.title }}</h2>
+                <p class="content">{{ article.content }}</p>
+                <p class="publication-date">Publié le {{ article.publication_date }}</p>
+            </div>
         {% endfor %}
-    </ul>
+    {% else %}
+        <p>Aucun article trouvé.</p>
+    {% endif %}
 </body>
 </html>

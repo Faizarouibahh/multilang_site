@@ -4,19 +4,19 @@ from django.http import JsonResponse
 import json
 from django.utils.dateparse import parse_datetime
 from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 def home(request):
-    return render(request, 'main/home.html')  # Assurez-vous que le chemin du template est correct
-
+    return render(request, 'main/home.html')  
 def article_detail(request, article_id):
     article = get_object_or_404(Article, id=article_id)
     return render(request, 'main/article_detail.html', {'article': article})
 
-@csrf_exempt
 def article_list(request):
-    articles = Article.objects.all().values('id', 'title', 'content', 'publication_date')  
-    articles_list = list(articles) 
-    return JsonResponse({'articles': articles_list})
+    articles = Article.objects.all()
+    context = {'articles': articles}
+    return render(request, 'main/article_list.html', context)
+
 
 @csrf_exempt
 def article_create(request):
@@ -78,3 +78,16 @@ def article_update(request, article_id):
             return JsonResponse({'error': str(e)}, status=500)
     else:
         return JsonResponse({'error': 'Invalid HTTP method'}, status=405)
+    
+@csrf_exempt
+def chatbot_view(request):
+    if request.method == 'POST':
+        message = request.POST.get('message', '')
+
+        
+        response_message = f"Vous avez dit : {message}. Je suis un simple chatbot !"
+
+        
+        return JsonResponse({'response': response_message})
+    else:
+        return render(request, 'main/chatbot.html')
