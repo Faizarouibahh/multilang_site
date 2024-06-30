@@ -1,0 +1,9 @@
+# requirements.txt
+Django==3.2.4
+jsonfield==3.1.0
+requests==2.26.0
+# Utilisation de requirements.txt
+#Installation des dépendances :
+ #Pour installer toutes les dépendances répertoriées dans requirements.txt, utilisez la commande suivante dans votre terminal ou invite de commande :
+pip install -r requirements.txt
+
