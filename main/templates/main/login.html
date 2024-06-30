@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <script>
+        async function loginUser(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const result = await response.json();
+
+            if (response.status === 200) {
+                if (result.redirect_url) {
+                    window.location.href = result.redirect_url;
+                } else {
+                    alert('Redirect URL is not defined.');
+                }
+            } else {
+                alert(result.error);
+            }
+        }
+    </script>
+</head>
+<body>
+    <form onsubmit="loginUser(event)">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

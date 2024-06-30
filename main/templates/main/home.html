@@ -1,10 +1,73 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accueil - Mon Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" />
 </head>
-<body>
-    <h1>Welcome to the Home Page</h1>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <div class="flex justify-between items-start">
+            <h1 class="text-3xl font-bold mb-8">Site Multilingue</h1>
+
+            <div class="flex items-start bg-blue-100 p-6 rounded-lg">
+                <div class="mr-12">
+                   
+                </div>
+
+                <div class="max-w-md">
+                    <form id="login-form" class="bg-white p-8 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold mb-6 text-center">Connexion</h2>
+
+                        <input type="text" name="username" id="username" placeholder="Nom d'utilisateur" class="border border-gray-300 rounded-lg py-2 px-3 mb-4 block w-full focus:outline-none focus:border-blue-500 transition duration-300" required />
+                        <input type="password" name="password" id="password" placeholder="Mot de passe" class="border border-gray-300 rounded-lg py-2 px-3 mb-6 block w-full focus:outline-none focus:border-blue-500 transition duration-300" required />
+
+                        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full focus:outline-none focus:shadow-outline transition duration-300">Se connecter</button>
+                    </form>
+
+                    <div class="mt-4 text-center">
+                        <p class="text-sm text-gray-600">
+                            Vous n'avez pas de compte ?
+                            <a href="{% url 'signup'%}" class="text-blue-500 font-semibold hover:text-blue-700">Créer un compte</a>
+                            <form method="post" action="{% url 'signup' %}" class="space-y-4">
+
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function handleLogin(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch('{% url 'login' %}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                window.location.href = result.redirect_url;
+            } else {
+                const result = await response.json();
+                alert(result.error);
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', handleLogin);
+    </script>
 </body>
 </html>

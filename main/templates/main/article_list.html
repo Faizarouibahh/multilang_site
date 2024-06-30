@@ -1,44 +1,23 @@
+{% load i18n %}
+
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{% get_current_language as language_code %}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des articles</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-        }
-        .article {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        .article h2 {
-            margin-top: 0;
-        }
-        .article .content {
-            margin-top: 10px;
-        }
-        .article .publication-date {
-            font-style: italic;
-            color: #666;
-        }
-    </style>
+    <title>{% trans "List of Articles" %}</title>
 </head>
 <body>
-    <h1>Liste des articles</h1>
-    {% if articles %}
+    <h1>{% trans "Articles" %}</h1>
+    <p>{% trans "Current Language Code:" %} {{ language_code }}</p>
+    <ul>
         {% for article in articles %}
-            <div class="article">
-                <h2>{{ article.title }}</h2>
-                <p class="content">{{ article.content }}</p>
-                <p class="publication-date">Publié le {{ article.publication_date }}</p>
-            </div>
+        <li>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.content }}</p>
+            <p><em>{{ article.publication_date }}</em></p>
+        </li>
         {% endfor %}
-    {% else %}
-        <p>Aucun article trouvé.</p>
-    {% endif %}
+    </ul>
+    <a href="{% url 'set_language' %}?language=en&next={{ request.path }}">English</a> | 
+    <a href="{% url 'set_language' %}?language=fr&next={{ request.path }}">French</a>
 </body>
 </html>

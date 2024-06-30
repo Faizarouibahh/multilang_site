@@ -1,0 +1,42 @@
+/* base.css */
+
+/* Styles pour les formulaires */
+.login-form, .signup-form {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form h2, .signup-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-form button, .signup-form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.login-form button:hover, .signup-form button:hover {
+    background-color: #45a049;
+}
+
+/* Styles pour le titre principal */
+.container h1 {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 2.5em;
+    color: #333;
+}
